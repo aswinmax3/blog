@@ -1,0 +1,827 @@
+{% extends 'blogs/base.html' %}
+
+{% block content %}
+
+<div class="settings-container">
+    <!-- Hero Section -->
+    <section class="settings-hero">
+        <div class="hero-content">
+            <div class="hero-icon">⚙️</div>
+            <h1>Settings & Preferences</h1>
+            <p>Manage your blog settings and customize your experience</p>
+        </div>
+    </section>
+
+    <!-- Settings Section -->
+    <section class="settings-section">
+        <div class="settings-grid">
+            <!-- Left: Settings Menu -->
+            <aside class="settings-menu">
+                <button class="menu-item active" onclick="showTab('general')">
+                    <span class="menu-icon">📋</span>
+                    <span class="menu-text">General</span>
+                </button>
+                <button class="menu-item" onclick="showTab('account')">
+                    <span class="menu-icon">👤</span>
+                    <span class="menu-text">Account</span>
+                </button>
+                <button class="menu-item" onclick="showTab('privacy')">
+                    <span class="menu-icon">🔒</span>
+                    <span class="menu-text">Privacy</span>
+                </button>
+                <button class="menu-item" onclick="showTab('notifications')">
+                    <span class="menu-icon">🔔</span>
+                    <span class="menu-text">Notifications</span>
+                </button>
+                <button class="menu-item" onclick="showTab('appearance')">
+                    <span class="menu-icon">🎨</span>
+                    <span class="menu-text">Appearance</span>
+                </button>
+                <button class="menu-item" onclick="showTab('danger')">
+                    <span class="menu-icon">⚠️</span>
+                    <span class="menu-text">Danger Zone</span>
+                </button>
+            </aside>
+
+            <!-- Right: Settings Content -->
+            <div class="settings-content">
+                <!-- General Settings -->
+                <div id="general" class="settings-tab active">
+                    <h2>General Settings</h2>
+                    <p class="tab-description">Manage your general blog preferences</p>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Blog Title</h3>
+                                <p>Your main blog title</p>
+                            </div>
+                            <input type="text" placeholder="Enter your blog title" class="setting-input">
+                        </label>
+                    </div>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Blog Description</h3>
+                                <p>A short description of your blog</p>
+                            </div>
+                            <textarea placeholder="Describe your blog..." class="setting-input"></textarea>
+                        </label>
+                    </div>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Default Language</h3>
+                                <p>Choose your preferred language</p>
+                            </div>
+                            <select class="setting-input">
+                                <option>English</option>
+                                <option>Spanish</option>
+                                <option>French</option>
+                                <option>German</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <button class="settings-save-btn">
+                        <span>Save Changes</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- Account Settings -->
+                <div id="account" class="settings-tab">
+                    <h2>Account Settings</h2>
+                    <p class="tab-description">Manage your account information</p>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Email Address</h3>
+                                <p>Your registered email</p>
+                            </div>
+                            <input type="email" placeholder="your@email.com" class="setting-input">
+                        </label>
+                    </div>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Username</h3>
+                                <p>Your unique username</p>
+                            </div>
+                            <input type="text" placeholder="username" class="setting-input">
+                        </label>
+                    </div>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Bio</h3>
+                                <p>Tell readers about yourself</p>
+                            </div>
+                            <textarea placeholder="Write your bio..." class="setting-input"></textarea>
+                        </label>
+                    </div>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Profile Picture</h3>
+                                <p>Upload a profile picture</p>
+                            </div>
+                            <input type="file" class="setting-input">
+                        </label>
+                    </div>
+
+                    <button class="settings-save-btn">
+                        <span>Save Changes</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div id="privacy" class="settings-tab">
+                    <h2>Privacy Settings</h2>
+                    <p class="tab-description">Control who can see your content</p>
+
+                    <div class="settings-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h3>Public Profile</h3>
+                                <p>Allow others to view your profile</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h3>Show Email</h3>
+                                <p>Display your email on your profile</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h3>Allow Comments</h3>
+                                <p>Let readers comment on your posts</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="settings-save-btn">
+                        <span>Save Changes</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- Notifications Settings -->
+                <div id="notifications" class="settings-tab">
+                    <h2>Notification Preferences</h2>
+                    <p class="tab-description">Choose when and how we notify you</p>
+
+                    <div class="settings-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h3>Email Notifications</h3>
+                                <p>Receive updates via email</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h3>Comment Notifications</h3>
+                                <p>Get notified when someone comments</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h3>Weekly Digest</h3>
+                                <p>Receive a weekly summary of activity</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="settings-save-btn">
+                        <span>Save Changes</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- Appearance Settings -->
+                <div id="appearance" class="settings-tab">
+                    <h2>Appearance Settings</h2>
+                    <p class="tab-description">Customize how your blog looks</p>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Theme</h3>
+                                <p>Choose your preferred theme</p>
+                            </div>
+                            <select class="setting-input">
+                                <option selected>Dark Theme</option>
+                                <option>Light Theme</option>
+                                <option>Auto (System)</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="settings-group">
+                        <label class="setting-item">
+                            <div class="setting-info">
+                                <h3>Posts per Page</h3>
+                                <p>Number of posts to show per page</p>
+                            </div>
+                            <select class="setting-input">
+                                <option>5 posts</option>
+                                <option selected>10 posts</option>
+                                <option>15 posts</option>
+                                <option>20 posts</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="settings-group">
+                        <div class="toggle-item">
+                            <div class="toggle-info">
+                                <h3>Animations</h3>
+                                <p>Enable smooth animations</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="settings-save-btn">
+                        <span>Save Changes</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- Danger Zone -->
+                <div id="danger" class="settings-tab">
+                    <h2>Danger Zone</h2>
+                    <p class="tab-description">Irreversible actions - proceed with caution</p>
+
+                    <div class="settings-group danger-group">
+                        <div class="danger-item">
+                            <div class="danger-info">
+                                <h3>Change Password</h3>
+                                <p>Update your account password</p>
+                            </div>
+                            <button class="danger-btn">Change Password</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group danger-group">
+                        <div class="danger-item">
+                            <div class="danger-info">
+                                <h3>Delete All Posts</h3>
+                                <p>Permanently delete all your posts</p>
+                            </div>
+                            <button class="danger-btn delete-btn">Delete All Posts</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group danger-group">
+                        <div class="danger-item">
+                            <div class="danger-info">
+                                <h3>Delete Account</h3>
+                                <p>Permanently delete your entire account and all data</p>
+                            </div>
+                            <button class="danger-btn delete-btn">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.settings-container {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* HERO SECTION */
+.settings-hero {
+    background: linear-gradient(135deg, rgba(0, 82, 255, 0.1), rgba(0, 212, 255, 0.05));
+    border-bottom: 1px solid var(--border-color);
+    padding: 60px 36px;
+    text-align: center;
+}
+
+.settings-hero .hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.settings-hero .hero-icon {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 20px;
+    animation: spin 3s linear infinite;
+}
+
+.settings-hero h1 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.settings-hero p {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* SETTINGS SECTION */
+.settings-section {
+    padding: 50px 36px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* SETTINGS MENU */
+.settings-menu {
+    background: var(--bg-tertiary);
+    border-right: 1px solid var(--border-color);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-item:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.menu-item.active {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+.menu-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.menu-text {
+    flex: 1;
+}
+
+/* SETTINGS CONTENT */
+.settings-content {
+    padding: 40px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.settings-tab {
+    display: none;
+}
+
+.settings-tab.active {
+    display: block;
+    animation: fadeInTab 0.3s ease;
+}
+
+.settings-tab h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.tab-description {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    margin-bottom: 32px;
+}
+
+/* SETTINGS GROUP */
+.settings-group {
+    margin-bottom: 28px;
+}
+
+.setting-item {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    align-items: center;
+    padding: 18px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.setting-item:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-hover);
+}
+
+.setting-info h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.setting-info p {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.setting-input {
+    padding: 10px 12px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.setting-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.1);
+}
+
+/* TOGGLE SWITCH */
+.toggle-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 18px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.toggle-item:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-hover);
+}
+
+.toggle-info h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.toggle-info p {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-flex;
+    width: 50px;
+    height: 28px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--border-color);
+    border-radius: 14px;
+    transition: all 0.3s ease;
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s ease;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: var(--accent-primary);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(22px);
+}
+
+/* DANGER ZONE */
+.danger-group {
+    margin-bottom: 20px;
+}
+
+.danger-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+    padding: 18px;
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.danger-item:hover {
+    border-color: var(--danger);
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.danger-info h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.danger-info p {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.danger-btn {
+    padding: 8px 16px;
+    background: var(--border-color);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.danger-btn:hover {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+}
+
+.danger-btn.delete-btn {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+}
+
+.danger-btn.delete-btn:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+}
+
+/* SAVE BUTTON */
+.settings-save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.settings-save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 82, 255, 0.3);
+}
+
+.settings-save-btn:active {
+    transform: scale(0.98);
+}
+
+.arrow {
+    transition: all 0.3s ease;
+}
+
+.settings-save-btn:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* ANIMATIONS */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* SCROLLBAR STYLE */
+.settings-menu::-webkit-scrollbar,
+.settings-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.settings-menu::-webkit-scrollbar-track,
+.settings-content::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+.settings-menu::-webkit-scrollbar-thumb,
+.settings-content::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+.settings-menu::-webkit-scrollbar-thumb:hover,
+.settings-content::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .settings-grid {
+        grid-template-columns: 220px 1fr;
+    }
+
+    .setting-item {
+        grid-template-columns: 1fr;
+    }
+
+    .toggle-item {
+        grid-template-columns: 1fr;
+    }
+
+    .danger-item {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .settings-hero {
+        padding: 40px 20px;
+    }
+
+    .settings-hero h1 {
+        font-size: 28px;
+    }
+
+    .settings-section {
+        padding: 30px 20px;
+    }
+
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-menu {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        max-height: none;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 12px;
+    }
+
+    .menu-item {
+        flex-shrink: 0;
+    }
+
+    .settings-content {
+        max-height: none;
+        padding: 24px;
+    }
+}
+</style>
+
+<script>
+function showTab(tabName) {
+    // Hide all tabs
+    const tabs = document.querySelectorAll('.settings-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    // Remove active class from all menu items
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => item.classList.remove('active'));
+
+    // Show selected tab
+    const selectedTab = document.getElementById(tabName);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
+
+    // Add active class to clicked menu item
+    event.target.closest('.menu-item').classList.add('active');
+}
+
+// Save button click handlers
+document.querySelectorAll('.settings-save-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        this.textContent = '✓ Saved!';
+        this.style.background = 'var(--success)';
+        
+        setTimeout(() => {
+            this.innerHTML = '<span>Save Changes</span><span class="arrow">→</span>';
+            this.style.background = '';
+        }, 2000);
+    });
+});
+</script>
+
+{% endblock content %}

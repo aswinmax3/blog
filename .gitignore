@@ -17,6 +17,7 @@ media/
 blog_env/
 venv/
 env/
+blog_env
 
 # VS Code
 .vscode/

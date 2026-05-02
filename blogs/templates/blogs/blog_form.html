@@ -2,13 +2,321 @@
 
 {% block content %}
 
-<h2>Create Blog</h2>
+<div class="dashboard-header">
+    <h1>✍️ Create Your Blog</h1>
+    <p>Start a new blog category and share your unique perspective with the world.</p>
+</div>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="form-container" style="padding: 32px 36px;">
+    <div class="form-wrapper-modern">
+        <!-- Left: Info Section -->
+        <div class="form-left-section">
+            <div class="form-info-header">
+                <div class="form-info-icon">📚</div>
+                <h2>Getting Started</h2>
+            </div>
 
-    <button type="submit">Save Blog</button>
-</form>
+            <div class="info-benefits">
+                <div class="benefit-card">
+                    <span class="benefit-emoji">🎯</span>
+                    <h3>Choose Your Topic</h3>
+                    <p>Pick a subject you're passionate about</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-emoji">💡</span>
+                    <h3>Create Your Brand</h3>
+                    <p>Give your blog a catchy, memorable name</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-emoji">✨</span>
+                    <h3>Build Your Community</h3>
+                    <p>Connect with readers who share your interests</p>
+                </div>
+            </div>
+
+            <div class="form-tip-box">
+                <p>💡 <strong>Pro Tip:</strong> Choose a blog name that's clear, memorable, and reflects your content niche.</p>
+            </div>
+        </div>
+
+        <!-- Right: Form Section -->
+        <div class="form-right-section">
+            <form method="post" class="modern-form-card">
+                {% csrf_token %}
+
+                <div class="form-field-group">
+                    <label for="{{ form.title.id_for_label }}" class="form-field-label">
+                        Blog Title <span class="required-star">*</span>
+                    </label>
+                    {{ form.title }}
+                    <span class="char-limit"><span id="titleLength">0</span>/200</span>
+                    <p class="field-hint">This is the name readers will see for your blog collection</p>
+                </div>
+
+                <div class="form-field-group">
+                    <label for="{{ form.description.id_for_label }}" class="form-field-label">
+                        Description <span class="required-star">*</span>
+                    </label>
+                    {{ form.description }}
+                    <span class="char-limit"><span id="descLength">0</span>/500</span>
+                    <p class="field-hint">Explain what your blog is about in 2-3 sentences</p>
+                </div>
+
+                <button type="submit" class="submit-button-modern">
+                    <span>Create Blog</span>
+                    <span class="arrow-icon">→</span>
+                </button>
+            </form>
+
+            <p class="form-footer-text">You can edit these details anytime from your settings.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+.form-container {
+    background: var(--bg-primary);
+}
+
+.form-wrapper-modern {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.form-info-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.form-info-icon {
+    font-size: 36px;
+}
+
+.form-info-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.info-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.benefit-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-tertiary);
+    transform: translateX(4px);
+}
+
+.benefit-emoji {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.benefit-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.benefit-card p {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.form-tip-box {
+    background: linear-gradient(135deg, rgba(0, 82, 255, 0.1), rgba(0, 212, 255, 0.05));
+    border: 1px solid var(--accent-primary);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.form-tip-box p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.form-right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modern-form-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.form-field-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.required-star {
+    color: var(--danger);
+}
+
+.modern-form-card input,
+.modern-form-card textarea {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.modern-form-card input:focus,
+.modern-form-card textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: var(--bg-secondary);
+    box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.1);
+}
+
+.modern-form-card textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.char-limit {
+    position: absolute;
+    right: 12px;
+    top: 36px;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    background: var(--bg-secondary);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.field-hint {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+}
+
+.submit-button-modern {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+}
+
+.submit-button-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 82, 255, 0.3);
+}
+
+.submit-button-modern:active {
+    transform: scale(0.98);
+}
+
+.arrow-icon {
+    transition: all 0.3s ease;
+}
+
+.submit-button-modern:hover .arrow-icon {
+    transform: translateX(4px);
+}
+
+.form-footer-text {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .form-wrapper-modern {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-wrapper-modern {
+        padding: 0;
+    }
+
+    .modern-form-card {
+        padding: 24px;
+    }
+
+    .form-info-header h2 {
+        font-size: 20px;
+    }
+}
+</style>
+
+<script>
+// Character counter for title
+const titleField = document.querySelector('input[name="title"]');
+if (titleField) {
+    titleField.addEventListener('input', function() {
+        document.getElementById('titleLength').textContent = this.value.length;
+    });
+    document.getElementById('titleLength').textContent = titleField.value.length;
+}
+
+// Character counter for description
+const descField = document.querySelector('textarea[name="description"]');
+if (descField) {
+    descField.addEventListener('input', function() {
+        document.getElementById('descLength').textContent = this.value.length;
+    });
+    document.getElementById('descLength').textContent = descField.value.length;
+}
+</script>
 
 {% endblock content %}

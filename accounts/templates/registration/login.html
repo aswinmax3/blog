@@ -1,0 +1,196 @@
+{% extends 'blogs/base.html' %}
+
+{% block content %}
+
+<div class="login-page-container">
+
+    <!-- HERO -->
+    <section class="login-hero">
+        <div class="hero-content">
+            <div class="hero-icon">📖</div>
+            <h1>Welcome Back</h1>
+            <p>Continue writing and sharing your ideas</p>
+        </div>
+    </section>
+
+    <!-- LOGIN -->
+    <section class="login-section">
+        <div class="login-grid">
+
+            <!-- LEFT SIDE -->
+            <div class="login-features">
+                <div class="feature-card">
+                    <span>✍️</span>
+                    <h3>Write & Publish</h3>
+                    <p>Create posts easily</p>
+                </div>
+
+                <div class="feature-card">
+                    <span>📊</span>
+                    <h3>Analytics</h3>
+                    <p>Track your growth</p>
+                </div>
+
+                <div class="feature-card">
+                    <span>📁</span>
+                    <h3>Manage Blogs</h3>
+                    <p>All blogs in one place</p>
+                </div>
+
+                <div class="feature-card">
+                    <span>🌟</span>
+                    <h3>Build Brand</h3>
+                    <p>Grow your identity</p>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="login-form-box">
+
+                <h2>Login</h2>
+                <p class="subtitle">Enter your credentials</p>
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <!-- Username -->
+                    <div class="form-group">
+                        <label>Username</label>
+                        {{ form.username }}
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label>Password</label>
+                        {{ form.password }}
+                    </div>
+
+                    <!-- Errors -->
+                    {% if form.errors %}
+                        <div class="error-box">
+                            Invalid username or password
+                        </div>
+                    {% endif %}
+
+                    <!-- Submit -->
+                    <button type="submit" class="login-btn">
+                        Login →
+                    </button>
+                </form>
+
+                <!-- Footer -->
+                <div class="form-footer">
+                    <p>
+                        Don’t have an account?
+                        <a href="{% url 'accounts:register' %}">Register</a>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<style>
+
+/* PAGE */
+.login-page-container {
+    color: #e2e8f0;
+}
+
+/* HERO */
+.login-hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero-icon {
+    font-size: 50px;
+}
+
+/* GRID */
+.login-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+}
+
+/* FEATURES */
+.login-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.feature-card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* FORM */
+.login-form-box {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.subtitle {
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+/* INPUT */
+.form-group {
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+/* BUTTON */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #0ea5e9;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+/* ERROR */
+.error-box {
+    background: #7f1d1d;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+/* FOOTER */
+.form-footer {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.form-footer a {
+    color: #38bdf8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .login-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+
+{% endblock content %}

@@ -25,6 +25,8 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=200)
     content = models.TextField()
+    views = models.PositiveIntegerField(default=0)
+    likes = models.PositiveIntegerField(default=0)
     date_added = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 

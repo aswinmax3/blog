@@ -1,0 +1,225 @@
+{% extends 'blogs/base.html' %}
+
+{% block content %}
+
+<div class="register-page">
+
+    <!-- HERO -->
+    <div class="register-hero">
+        <h1>Create Your Account</h1>
+        <p>Start your blogging journey today</p>
+    </div>
+
+    <!-- MAIN -->
+    <div class="register-container">
+
+        <!-- LEFT SIDE -->
+        <div class="register-left">
+            <div class="box">
+                <h3>✍️ Write</h3>
+                <p>Create amazing blog posts</p>
+            </div>
+
+            <div class="box">
+                <h3>📊 Grow</h3>
+                <p>Track your audience</p>
+            </div>
+
+            <div class="box">
+                <h3>🌍 Share</h3>
+                <p>Reach the world</p>
+            </div>
+
+            <div class="box">
+                <h3>⭐ Build</h3>
+                <p>Create your brand</p>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="register-form">
+
+            <h2>Register</h2>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <div class="form-group">
+                    <label>Username</label>
+                    {{ form.username }}
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label>Password</label>
+                    {{ form.password1 }}
+
+                    <div class="rules">
+                        <p id="len">✖ 8+ characters</p>
+                        <p id="num">✖ Number</p>
+                        <p id="let">✖ Letter</p>
+                        <p id="sp">✖ Special char</p>
+                    </div>
+                </div>
+
+                <!-- Confirm -->
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    {{ form.password2 }}
+                </div>
+
+                <!-- Errors -->
+                {% if form.errors %}
+                    <div class="error-box">
+                        Please fix the errors above
+                    </div>
+                {% endif %}
+
+                <!-- Submit -->
+                <button type="submit" class="btn-register">
+                    Create Account →
+                </button>
+
+            </form>
+
+            <p class="login-link">
+                Already have an account?
+                <a href="{% url 'accounts:login' %}">Login</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+/* PAGE */
+.register-page {
+    padding: 40px;
+}
+
+/* HERO */
+.register-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.register-hero h1 {
+    font-size: 32px;
+}
+
+/* LAYOUT */
+.register-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+/* LEFT */
+.register-left {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.box {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* FORM */
+.register-form {
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+/* RULES */
+.rules {
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.rules p {
+    margin: 3px 0;
+    color: #94a3b8;
+}
+
+.valid {
+    color: #22c55e;
+}
+
+.invalid {
+    color: #ef4444;
+}
+
+/* BUTTON */
+.btn-register {
+    width: 100%;
+    padding: 12px;
+    background: #0ea5e9;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ERROR */
+.error-box {
+    background: #7f1d1d;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* LINK */
+.login-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-link a {
+    color: #38bdf8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .register-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+
+<script>
+const pass = document.querySelector("input[name='password1']");
+
+if (pass) {
+    pass.addEventListener("input", () => {
+        const v = pass.value;
+
+        document.getElementById("len").className = v.length >= 8 ? "valid" : "invalid";
+        document.getElementById("num").className = /\d/.test(v) ? "valid" : "invalid";
+        document.getElementById("let").className = /[a-zA-Z]/.test(v) ? "valid" : "invalid";
+        document.getElementById("sp").className = /[^A-Za-z0-9]/.test(v) ? "valid" : "invalid";
+    });
+}
+</script>
+
+{% endblock content %}

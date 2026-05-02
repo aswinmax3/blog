@@ -2,22 +2,808 @@
 
 {% block content %}
 
-<h2>All Posts</h2>
+<div class="home-page-container">
+    <!-- Hero Welcome Section -->
+    <section class="home-hero">
+        <div class="hero-wrapper">
+            <div class="hero-icon">👋</div>
+            <h1>Welcome back, <span class="user-name">{{ user.username }}</span>!</h1>
+            <p>Here's your blogging performance overview and insights</p>
+        </div>
+    </section>
 
-{% for post in posts %}
-    <div class="card">
-        <h3>{{ post.title }}</h3>
-        <p class="meta">
-            Blog: {{ post.blog.title }} | {{ post.date_added }}
-        </p>
+    <!-- Metrics Section -->
+    <section class="metrics-section">
+        <div class="section-container">
+            <h2 class="section-title">Your Performance</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-icon">📝</span>
+                        <span class="metric-label">Total Posts</span>
+                    </div>
+                    <div class="metric-body">
+                        <p class="metric-value">{{ posts|length }}</p>
+                        <p class="metric-change positive">
+                            <span class="change-badge">↑ 12%</span> from last month
+                        </p>
+                    </div>
+                </div>
 
-        <p>{{ post.content }}</p>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-icon">📚</span>
+                        <span class="metric-label">Total Blogs</span>
+                    </div>
+                    <div class="metric-body">
+                        <p class="metric-value">{{ blogs|length }}</p>
+                        <p class="metric-change positive">
+                            <span class="change-badge">↑ 8%</span> from last month
+                        </p>
+                    </div>
+                </div>
 
-        <a href="{% url 'blogs:edit_post' post.id %}">Edit</a>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-icon">👥</span>
+                        <span class="metric-label">Engagement</span>
+                    </div>
+                    <div class="metric-body">
+                        <p class="metric-value">94%</p>
+                        <p class="metric-change positive">
+                            <span class="change-badge">↑ 5%</span> from last month
+                        </p>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span class="metric-icon">⭐</span>
+                        <span class="metric-label">Rating</span>
+                    </div>
+                    <div class="metric-body">
+                        <p class="metric-value">4.8</p>
+                        <p class="metric-change positive">
+                            <span class="change-badge">↑ 0.3</span> from last month
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <div class="main-content-grid">
+        <!-- Left Column -->
+        <div class="content-left">
+            <!-- Recent Posts -->
+            <section class="content-card">
+                <div class="card-header-pro">
+                    <div>
+                        <h2>📄 Recent Posts</h2>
+                        <p class="card-subtitle">Your latest published content</p>
+                    </div>
+                    <a href="{% url 'blogs:new_post' %}" class="btn-action">
+                        <span>+ Write Post</span>
+                    </a>
+                </div>
+
+                {% if posts %}
+                    <div class="posts-list">
+                        {% for post in posts %}
+                            <div class="post-item-pro">
+                                <div class="post-icon-container">
+                                    <span class="post-icon">📄</span>
+                                </div>
+                                <div class="post-details-pro">
+                                    <h3 class="post-title">{{ post.title }}</h3>
+                                    <p class="post-meta">{{ post.blog.title }} • {{ post.date_added|date:"M d, Y" }}</p>
+                                </div>
+                                <a href="{% url 'blogs:edit_post' post.id %}" class="post-edit-btn">
+                                    ✏️
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <span class="empty-icon">📝</span>
+                        <p>No posts yet. Ready to share your thoughts?</p>
+                        <a href="{% url 'blogs:new_post' %}" class="empty-action">Create your first post</a>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- Your Blogs -->
+            <section class="content-card">
+                <div class="card-header-pro">
+                    <div>
+                        <h2>📚 Your Blogs</h2>
+                        <p class="card-subtitle">Manage your blog categories</p>
+                    </div>
+                    <a href="{% url 'blogs:new_blog' %}" class="btn-action">
+                        <span>+ Create Blog</span>
+                    </a>
+                </div>
+
+                {% if blogs %}
+                    <div class="blogs-grid-pro">
+                        {% for blog in blogs %}
+                            <div class="blog-card-pro">
+                                <div class="blog-icon-container">
+                                    <span class="blog-icon">📖</span>
+                                </div>
+                                <h3 class="blog-title">{{ blog.title }}</h3>
+                                <p class="blog-description">{{ blog.description|truncatechars:100 }}</p>
+                                <div class="blog-footer">
+                                    <span class="blog-post-count">
+                                        <span class="badge">{{ blog.posts.all|length }}</span> posts
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <span class="empty-icon">📚</span>
+                        <p>No blogs created yet. Start organizing your content!</p>
+                        <a href="{% url 'blogs:new_blog' %}" class="empty-action">Create your first blog</a>
+                    </div>
+                {% endif %}
+            </section>
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="content-right">
+            <!-- Quick Actions -->
+            <section class="content-card">
+                <h2>⚡ Quick Actions</h2>
+                <div class="quick-actions">
+                    <a href="{% url 'blogs:new_post' %}" class="quick-action-btn">
+                        <span class="qa-icon">✍️</span>
+                        <span class="qa-text">Write Post</span>
+                        <span class="qa-arrow">→</span>
+                    </a>
+                    <a href="{% url 'blogs:new_blog' %}" class="quick-action-btn">
+                        <span class="qa-icon">📁</span>
+                        <span class="qa-text">Create Blog</span>
+                        <span class="qa-arrow">→</span>
+                    </a>
+                    <a href="#" class="quick-action-btn">
+                        <span class="qa-icon">📊</span>
+                        <span class="qa-text">View Stats</span>
+                        <span class="qa-arrow">→</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Activity Feed -->
+            <section class="content-card">
+                <h2>🔔 Activity</h2>
+                <div class="activity-feed">
+                    <div class="activity-item-pro">
+                        <div class="activity-icon-circle">✏️</div>
+                        <div class="activity-content">
+                            <p class="activity-title">Post created</p>
+                            <p class="activity-time">2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="activity-item-pro">
+                        <div class="activity-icon-circle">👁️</div>
+                        <div class="activity-content">
+                            <p class="activity-title">50 views</p>
+                            <p class="activity-time">Today</p>
+                        </div>
+                    </div>
+                    <div class="activity-item-pro">
+                        <div class="activity-icon-circle">❤️</div>
+                        <div class="activity-content">
+                            <p class="activity-title">12 new likes</p>
+                            <p class="activity-time">This week</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pro Tip -->
+            <section class="content-card pro-tip-card">
+                <div class="tip-header">
+                    <span class="tip-icon">💡</span>
+                    <h2>Pro Tip</h2>
+                </div>
+                <p class="tip-text">Consistency is key! Try to publish posts regularly to keep your audience engaged and coming back for more.</p>
+            </section>
+        </aside>
     </div>
+</div>
 
-{% empty %}
-    <p>No posts available.</p>
-{% endfor %}
+<style>
+.home-page-container {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* HERO SECTION */
+.home-hero {
+    background: linear-gradient(135deg, rgba(0, 82, 255, 0.1), rgba(0, 212, 255, 0.05));
+    border-bottom: 1px solid var(--border-color);
+    padding: 50px 36px;
+    text-align: center;
+}
+
+.hero-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.home-hero .hero-icon {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 16px;
+    animation: wave 2s ease-in-out infinite;
+}
+
+.home-hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.user-name {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.home-hero p {
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+
+/* METRICS SECTION */
+.metrics-section {
+    padding: 50px 36px;
+    background: var(--bg-primary);
+}
+
+.section-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.metric-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-tertiary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 82, 255, 0.15);
+}
+
+.metric-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.metric-icon {
+    font-size: 32px;
+}
+
+.metric-label {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.metric-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.metric-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent-primary);
+    margin: 0;
+}
+
+.metric-change {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.metric-change.positive {
+    color: var(--success);
+}
+
+.change-badge {
+    font-weight: 700;
+}
+
+/* MAIN CONTENT GRID */
+.main-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 30px;
+    padding: 0 36px 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* CONTENT CARDS */
+.content-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.content-card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.card-header-pro {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    gap: 16px;
+}
+
+.card-subtitle {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin: 0;
+    margin-top: 4px;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 82, 255, 0.2);
+}
+
+/* POSTS LIST */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post-item-pro {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.post-item-pro:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-primary);
+}
+
+.post-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 82, 255, 0.1);
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.post-icon {
+    font-size: 24px;
+}
+
+.post-details-pro {
+    flex: 1;
+    min-width: 0;
+}
+
+.post-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-meta {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin: 0;
+}
+
+.post-edit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 212, 255, 0.1);
+    border-radius: 6px;
+    color: var(--accent-secondary);
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.post-edit-btn:hover {
+    background: var(--accent-secondary);
+    color: var(--bg-primary);
+}
+
+/* BLOGS GRID */
+.blogs-grid-pro {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.blog-card-pro {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.blog-card-pro:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-hover);
+    transform: translateY(-4px);
+}
+
+.blog-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 82, 255, 0.1);
+    border-radius: 8px;
+}
+
+.blog-icon {
+    font-size: 28px;
+}
+
+.blog-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.blog-description {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin: 0;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.blog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.blog-post-count {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    background: var(--accent-primary);
+    color: white;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.empty-state p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.empty-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.empty-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 82, 255, 0.2);
+}
+
+/* QUICK ACTIONS */
+.quick-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 14px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.quick-action-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-secondary);
+}
+
+.qa-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.qa-text {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.qa-arrow {
+    font-size: 16px;
+    color: var(--text-tertiary);
+    transition: all 0.3s ease;
+}
+
+.quick-action-btn:hover .qa-arrow {
+    color: var(--accent-secondary);
+    transform: translateX(2px);
+}
+
+/* ACTIVITY FEED */
+.activity-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.activity-item-pro {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.activity-item-pro:hover {
+    background: var(--bg-hover);
+}
+
+.activity-icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 212, 255, 0.1);
+    border-radius: 50%;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.activity-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.activity-time {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin: 2px 0 0 0;
+}
+
+/* PRO TIP CARD */
+.pro-tip-card {
+    background: linear-gradient(135deg, rgba(0, 82, 255, 0.1), rgba(0, 212, 255, 0.05));
+    border: 1px solid rgba(0, 82, 255, 0.3);
+}
+
+.tip-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.tip-icon {
+    font-size: 20px;
+}
+
+.pro-tip-card h2 {
+    font-size: 16px;
+}
+
+.tip-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ANIMATIONS */
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(20deg); }
+    75% { transform: rotate(-20deg); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .main-content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-hero h1 {
+        font-size: 28px;
+    }
+
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .blogs-grid-pro {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .home-hero {
+        padding: 40px 20px;
+    }
+
+    .metrics-section {
+        padding: 40px 20px;
+    }
+
+    .main-content-grid {
+        padding: 0 20px 40px;
+        gap: 20px;
+    }
+
+    .content-card {
+        padding: 20px;
+    }
+
+    .home-hero h1 {
+        font-size: 24px;
+    }
+
+    .home-hero .hero-icon {
+        font-size: 48px;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-header-pro {
+        flex-direction: column;
+    }
+
+    .blogs-grid-pro {
+        grid-template-columns: 1fr;
+    }
+
+    .post-item-pro {
+        flex-wrap: wrap;
+    }
+}
+</style>
 
 {% endblock content %}

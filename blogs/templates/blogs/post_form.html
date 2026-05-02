@@ -2,13 +2,413 @@
 
 {% block content %}
 
-<h2>Create / Edit Post</h2>
+<div class="post-form-container">
+    <!-- Hero Section -->
+    <section class="post-hero">
+        <div class="hero-content">
+            <div class="hero-icon">✍️</div>
+            <h1>Create Your Post</h1>
+            <p>Share your thoughts with the world and engage your audience</p>
+        </div>
+    </section>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <!-- Form Section -->
+    <section class="post-section">
+        <div class="post-grid">
+            <!-- Left: Tips & Guide -->
+            <div class="post-tips">
+                <div class="tip-card">
+                    <span class="tip-emoji">💡</span>
+                    <h3>Write With Impact</h3>
+                    <p>Create compelling titles that grab attention and make your readers want to learn more</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-emoji">📚</span>
+                    <h3>Organize Your Ideas</h3>
+                    <p>Structure your content clearly with good formatting and paragraphs for better readability</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-emoji">🎯</span>
+                    <h3>Choose Your Category</h3>
+                    <p>Select the right blog category to reach your target audience and organize your work</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-emoji">⭐</span>
+                    <h3>Quality Over Quantity</h3>
+                    <p>Focus on creating valuable content that resonates with your readers and adds value</p>
+                </div>
+            </div>
 
-    <button type="submit">Save Post</button>
-</form>
+            <!-- Right: Form -->
+            <div class="post-form-box">
+                <div class="form-header">
+                    <h2>Write Your Story</h2>
+                    <p>Fill in the details below and publish your post</p>
+                </div>
+
+                <form method="post" class="post-form">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="{{ form.blog.id_for_label }}">Select Blog Category</label>
+                        {{ form.blog }}
+                        <p class="form-hint">Choose which blog category this post belongs to</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.title.id_for_label }}">Post Title</label>
+                        {{ form.title }}
+                        <div class="char-counter">
+                            <span id="titleLength">0</span> / 200
+                        </div>
+                        <p class="form-hint">Create a catchy title that describes your post</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.text.id_for_label }}">Post Content</label>
+                        {{ form.text }}
+                        <div class="char-counter">
+                            <span id="contentLength">0</span> / 5000
+                        </div>
+                        <p class="form-hint">Write your detailed thoughts and ideas here</p>
+                    </div>
+
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="error-message">
+                                <span>⚠️</span> {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <button type="submit" class="post-submit-btn">
+                        <span>Publish Post</span>
+                        <span class="arrow">→</span>
+                    </button>
+                </form>
+
+                <p class="form-footer-text">
+                    Your post will be saved and published immediately
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.post-form-container {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* HERO SECTION */
+.post-hero {
+    background: linear-gradient(135deg, rgba(0, 82, 255, 0.1), rgba(0, 212, 255, 0.05));
+    border-bottom: 1px solid var(--border-color);
+    padding: 60px 36px;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.post-hero .hero-icon {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 20px;
+    animation: penWave 2s ease-in-out infinite;
+}
+
+.post-hero h1 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.post-hero p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* POST SECTION */
+.post-section {
+    padding: 60px 36px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+/* TIPS */
+.post-tips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.tip-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s ease;
+}
+
+.tip-card:hover {
+    border-color: var(--accent-primary);
+    background: var(--bg-tertiary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 82, 255, 0.15);
+}
+
+.tip-emoji {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.tip-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.tip-card p {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* FORM BOX */
+.post-form-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+}
+
+.form-header {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.form-header h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* FORM */
+.post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.post-form select,
+.post-form input[type="text"],
+.post-form textarea {
+    padding: 12px 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.post-form textarea {
+    min-height: 200px;
+    font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.post-form select:focus,
+.post-form input:focus,
+.post-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: var(--bg-secondary);
+    box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.1);
+}
+
+.form-hint {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+}
+
+/* CHARACTER COUNTER */
+.char-counter {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    background: var(--bg-tertiary);
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+/* SUBMIT BUTTON */
+.post-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 12px;
+}
+
+.post-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 82, 255, 0.3);
+}
+
+.post-submit-btn:active {
+    transform: scale(0.98);
+}
+
+.arrow {
+    transition: all 0.3s ease;
+}
+
+.post-submit-btn:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* FOOTER TEXT */
+.form-footer-text {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-top: 16px;
+}
+
+/* ERRORS */
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--danger);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--danger);
+}
+
+/* ANIMATIONS */
+@keyframes penWave {
+    0% { transform: rotate(0deg) translateY(0); }
+    25% { transform: rotate(-15deg) translateY(-5px); }
+    50% { transform: rotate(0deg) translateY(0); }
+    75% { transform: rotate(15deg) translateY(-5px); }
+    100% { transform: rotate(0deg) translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+    .post-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .post-tips {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .post-hero {
+        padding: 40px 20px;
+    }
+
+    .post-hero h1 {
+        font-size: 28px;
+    }
+
+    .post-section {
+        padding: 40px 20px;
+    }
+
+    .post-form-box {
+        padding: 28px 20px;
+    }
+
+    .form-header h2 {
+        font-size: 24px;
+    }
+
+    .tip-card {
+        padding: 16px;
+    }
+
+    .post-grid {
+        gap: 30px;
+    }
+}
+</style>
+
+<script>
+// Character counters
+const titleField = document.querySelector("input[name='title']");
+const contentField = document.querySelector("textarea[name='text']");
+
+if (titleField) {
+    titleField.addEventListener('input', function() {
+        document.getElementById('titleLength').textContent = this.value.length;
+    });
+    // Initialize on page load
+    document.getElementById('titleLength').textContent = titleField.value.length;
+}
+
+if (contentField) {
+    contentField.addEventListener('input', function() {
+        document.getElementById('contentLength').textContent = this.value.length;
+    });
+    // Initialize on page load
+    document.getElementById('contentLength').textContent = contentField.value.length;
+}
+</script>
 
 {% endblock content %}

@@ -1,0 +1,31 @@
+<div class="activity-item">
+    <div class="icon">✏️</div>
+    <div>
+        <h4>Post created</h4>
+        <p>2 hours ago</p>
+    </div>
+</div>
+
+<a href="{% url 'blogs:new_post' %}" class="activity-item">
+    <div class="icon">✏️</div>
+    <div>
+        <h4>Post created</h4>
+        <p>2 hours ago</p>
+    </div>
+</a>
+
+<a href="{% url 'blogs:total_views' %}" class="activity-item">
+    <div class="icon">👁️</div>
+    <div>
+        <h4>50 views</h4>
+        <p>Today</p>
+    </div>
+</a>
+
+<a href="{% url 'blogs:total_likes' %}" class="activity-item">
+    <div class="icon">❤️</div>
+    <div>
+        <h4>12 new likes</h4>
+        <p>This week</p>
+    </div>
+</a>
